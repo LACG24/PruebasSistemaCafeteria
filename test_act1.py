@@ -16,7 +16,7 @@ def agrega_bebida(registro):
     #Se utiliza la funcion map y funciones anonimas para verificar las condiciones en todos los tamaños
     elif not all(map(lambda x: x.isdigit(), datos[1:])): #Se verifica que los tamaños sean numeros enteros
         return False
-    elif not all(map(lambda x, y: int(x) <= int(y), datos[1:-1], datos[2:])): #Se verifica que los tamaños esten ordenados asc
+    elif not all(map(lambda x, y: int(x) < int(y), datos[1:-1], datos[2:])): #Se verifica que los tamaños esten ordenados asc
         return False
     elif not all(map(lambda x: (int(x) >= 1 and int(x) <= 48), datos[1:])): #Se verifica que los tamaños esten entre 1 y 48
         return False
@@ -28,7 +28,7 @@ def agrega_bebida(registro):
 #Se ejecutan con pytest
 def test_answer():
     
-    #Verifica nombre alfabetico
+    #1. Verifica nombre alfabetico
     #Nombre con números 
     assert agrega_bebida("a09234,1,2,3,4") == False
     #Nombre alfabético 
@@ -36,7 +36,7 @@ def test_answer():
     #Nombre con números y letras 
     assert agrega_bebida("x127aaj,2,3,14,20") == False 
 
-    #El nombre del artículo tiene de 2 a 15 caracteres de longitud 
+    #2. El nombre del artículo tiene de 2 a 15 caracteres de longitud 
     #Nombre con un caracter 
     assert agrega_bebida("a,1,2,3,4") == False
     #Nombre con 15 caracteres (válido)
@@ -48,7 +48,7 @@ def test_answer():
     #Nombre con caracter vacio 
     assert agrega_bebida(" ,1,2,3,4") == False
     
-    #El valor de los tamaños está en el rango de 1 a 48
+    #3. El valor de los tamaños está en el rango de 1 a 48
     #Valores en el rango y limite inferior
     assert agrega_bebida("refresco,1,2,3,4") == True
     #Limite superior
@@ -60,7 +60,7 @@ def test_answer():
     #Valores negativos
     assert agrega_bebida("refresco,-3,-5") == False
 
-    #El valor del tamaño es un número entero 
+    #4. El valor del tamaño es un número entero 
     #Recibir un numero entero
     assert agrega_bebida("agua,10") == True
     #Recibir un numero decimal
@@ -68,7 +68,7 @@ def test_answer():
     #Recibir un string
     assert agrega_bebida("refresco,abc,2,3,4") == False
 
-    #Los valores del tamaño se ingresan en orden ascendente 
+    #5. Los valores del tamaño se ingresan en orden ascendente 
     #Valores ordenados asc
     assert agrega_bebida("agua,10,11,12,13") == True
     #Valores ordenados des
@@ -76,7 +76,7 @@ def test_answer():
     #Valores sin ordenar
     assert agrega_bebida("refresco,4,3,5,1") == False
     
-    #Se ingresan de uno a cinco valores de tamaño 
+    #6. Se ingresan de uno a cinco valores de tamaño 
     #Agregar un tamaño
     assert agrega_bebida("refresco,1") == True
     #Agregar 5 tamaños
@@ -86,13 +86,13 @@ def test_answer():
     #Agregar mas de 5 tamaños
     assert agrega_bebida("agua,10,11,12,13,14,20") == False
 
-    #El nombre del artículo es el primero en la entrada 
+    #7. El nombre del artículo es el primero en la entrada 
     #Agregar un nombre correcto
     assert agrega_bebida("refresco,1,2,3,4") == True
     #Agregar el nombre despues de un tamaño
     assert agrega_bebida("1,refresco,2,3,4") == False
 
-    #Una sola coma separa cada entrada en la lista 
+    #8. Una sola coma separa cada entrada en la lista 
     #Usar una sola coma
     assert agrega_bebida("refresco,31,32,33,34") == True
     #Agregar dos comas en un elemento
@@ -100,14 +100,14 @@ def test_answer():
     #Usar otro caracter para separar(|)
     assert agrega_bebida("agua|10|11|12|13") == False
 
-    #Se ignoran los espacios en blanco
+    #9. Se ignoran los espacios en blanco
     #Usar espacios en el nombre
     assert agrega_bebida("agua gas,1,2,3,4") == True
     #Usar espacios en los tamaños
-    assert agrega_bebida("agua,1 1,11,12,1  3") == True
+    assert agrega_bebida("agua,1 0,11,12,1  3") == True
 
-    #Otros casos
+    #10. Otros casos
     #No ingresar ningun valor
     assert agrega_bebida("") == False
     #Ingresar tamaños iguales
-    assert agrega_bebida("agua,11,11,11,11,11") == True
+    assert agrega_bebida("agua,11,11,11,11,11") == False
