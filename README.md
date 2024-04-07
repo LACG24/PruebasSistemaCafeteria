@@ -1,6 +1,6 @@
 # PruebasSistemaCafeteria
 
-El archivo principal ejecutable con el programa tiene el nomre "test_act1.py".
+El archivo principal ejecutable con el programa, tiene el nombre "test_act1.py".
 
 
 Es necesario instalar pytest para realizar las pruebas.
@@ -9,4 +9,4 @@ Es necesario instalar pytest para realizar las pruebas.
 Una vez instalado, se debe colocar en la misma carpeta del archivo.
 
 
-Por último, se ejcuta el comando "pytest" en la consola de comandos para verificar los casos.
+Por último, se ejecuta el comando "pytest" en la consola de comandos para verificar los casos.
